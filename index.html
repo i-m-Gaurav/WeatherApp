@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<style>
+    body{
+    background-color:rgb(255, 255, 255);
+    font-family: montserrat;
+}
+
+.box{
+    position: absolute; 
+  left: 0; 
+  right: 0; 
+  top: 10%;
+  margin-left: auto; 
+  margin-right: auto; 
+    padding: 10px;
+    height: 300px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: rgb(158, 234, 237);
+    overflow: hidden;
+}
+
+#weathericon{
+    font-size: 60px;
+}
+.location{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size:20px;
+}
+
+.info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+#date{
+    font-size: 8px;
+    
+}
+.tempmin_max{
+    font-size: 10px;
+}
+
+.-one{
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    background-color: rgba(235, 235, 235, 0.682);
+    top: 60%;
+    border-radius: 120px;
+    animation : rotateCloud 3s linear 2s infinite ;
+}
+.-two{
+    position: absolute;
+    height: 290px;
+    width: 290px;
+    background-color: rgba(235, 235, 235, 0.682);
+    top: 65%;
+    border-radius: 122px;
+    animation : rotateCloud 2s linear 2s infinite ;
+}
+.-three{
+    position: absolute;
+    height: 290px;
+    width: 290px;
+    background-color: rgba(235, 235, 235, 0.682);
+    top: 55%;
+    border-radius: 124px;
+    animation : rotateCloud 4s linear 2s infinite ;
+}
+@keyframes rotateCloud {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+
+
+
+</style>
+
+<body>
+
+    <div class="box">
+        <div class="wave -one"></div>
+        <div class="wave -two"></div>
+        <div class="wave -three"></div>
+
+        <div id="weathercon">
+            <i id="weathericon" class="fas fa-sun" style="color: orange"></i>
+
+        </div>
+        <div class="info">
+            <h2 class="location"> 
+                <i class="fa-solid fa-street-view"></i>&nbsp;&nbsp;{%location%},{%country%}
+            </h2>
+            <p id="date">WED | OCT 12 | 07:12AM</p>
+            <h1 class="temp">{%currTemp%}&deg;</h1>
+            <h3 class="tempmin_max">Min {%minTemp%}&deg; | Max {%maxTemp%}&deg;</h3>
+        </div>
+        
+
+    </div>
+    
+</body>
+<script>
+const currentDate = document.getElementById("date");
+let weatherCon = document.getElementById('weathercon');
+
+const tempStatus = "{%status%}";
+
+if(tempStatus == "Haze"){
+    weatherCon.innerHTML = "<i class='fas fa-sun' style='color: orange'></i>";
+}
+
+const getCurrentDay = () => {
+
+    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const d = new Date();
+    let day = weekday[d.getDay()];
+    return day;
+}
+
+const getCurrentDate = () =>{
+    var months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
+    const d = new Date();
+    let month = months[d.getMonth()];
+    var date = d.getDate();
+
+    let hours = d.getHours();
+    let mins = d.getMinutes();
+
+    let periods = "AM";
+
+    if(hours > 11) {
+        periods = "PM";
+        if(hours > 12) hours -= 12;
+    }
+    if(mins < 10) {
+        mins = "0" + mins;
+    }
+
+    return `${month} ${date} | ${hours}:${mins}${periods}`;
+
+}
+
+currentDate.innerHTML = getCurrentDay() + " | " + getCurrentDate();
+
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
